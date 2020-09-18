@@ -18,13 +18,5 @@
     <ClCompile Include="OOP3200-Lab1-Jacky-Ashok.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MyConsoleInput.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="MyconsoleInput.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>
