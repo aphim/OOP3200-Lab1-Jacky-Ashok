@@ -1,5 +1,12 @@
 // OOP3200-Lab1-Jacky-Ashok.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
+// Title:  OOP 3200 Lab 1 - Review of Classes and Objects
+// Made by: Jacky Yuan, 100520106
+//          Ashok Sasitharan, 100745484
+// Date: Sept 18, 2020
+// Description: Program used to generate and track work tickets for client requests.
+// Last Modified: N/A
+//
 
 #include <iostream>
 
