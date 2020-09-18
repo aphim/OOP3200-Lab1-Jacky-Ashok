@@ -22,8 +22,9 @@ using namespace std;
 class WorkTicket
 {
 public:
+
     //constructor
-    WorkTicket(int ticketNumber = 0, string clientID = " ", int workTicketDay = 1, int workTicketMonth = 1, int workTicketYear = 2000, string issueDescription = " ");
+    WorkTicket(int ticketNumber = 0, string clientID = "", int workTicketDay = 1, int workTicketMonth = 1, int workTicketYear = 2000, string issueDescription = "");
 
 
     // Accessors:
@@ -38,7 +39,9 @@ public:
     //get the work ticket year
     int GetWorkTicketYear();
     //get the clients problem description
-    string GetDescription();
+    string GetIssueDescription();
+    //returns the ticket attributes
+    string ShowWorkTicket();
 
 
     //Mutators:
@@ -55,7 +58,7 @@ public:
     // set issue Description
     void SetIssueDescription(string issueDescription);
     // set work ticket
-    void SetWorkTicket(int ticketNumber, string clientID, int workTicketDay, int workTicketMonth, int workTicketYear, string issueDescription);
+    bool SetWorkTicket(int ticketNumber, string clientID, int workTicketDay, int workTicketMonth, int workTicketYear, string issueDescription);
 
 
 private:
@@ -71,36 +74,99 @@ private:
 
 int main()
 {
-    //user inputted variables
+    //constants
+    const int NUMBER_OF_OBJECTS = 2;
+    const int MIN_DATE = 1;
+    const int MAX_DATE = 31;
+    const int MIN_MONTHS = 1;
+    const int MAX_MONTHS = 12;
+    const int MIN_YEARS = 2000;
+    const int MAX_YEARS = 2099;
+    const int MIN_TICKET_NUMBER = 1;
+    //Variable Declarations
     int inputtedTicketNumber;
     string inputtedClientID;
     int inputtedWorkTicketDay;
     int inputtedWorkTicketMonth;
     int inputtedWorkTicketYear;
     string inputtedIssueDescription;
+    WorkTicket workTicketObj[2];
+    bool errorFlag = false;
 
-}
+    //INPUT SECTION
+    for (int i = 0; i <= NUMBER_OF_OBJECTS; i++)
+    {
+        cout << "\nWork Ticket #" << i + 1;
+        while (errorFlag == false)
+        {
+            cout << "\nEnter the work ticket number: "; //prompt input for ticket number
+            inputtedTicketNumber = ConsoleInput::ReadInteger(MIN_TICKET_NUMBER); //users input for ticket number
+
+            cout << "\nEnter the Client ID: "; //prompt input for the client id
+            cin >> inputtedClientID; //user input for client id
+
+            cout << "\nEnter the date: "; // prompt input for the ticket's date
+            inputtedWorkTicketDay = ConsoleInput::ReadInteger(MIN_DATE, MAX_DATE); //user input for ticket's date
+
+            cout << "\nEnter the month as a number between 1-12:"; // prompt input for the ticket's month
+            inputtedWorkTicketMonth = ConsoleInput::ReadInteger(MIN_MONTHS, MAX_MONTHS); //input for ticket's month
+
+            cout << "\nEnter the year (must be between 2000-2099):"; //prompt input for the ticket's year
+            inputtedWorkTicketYear = ConsoleInput::ReadInteger(MIN_YEARS, MAX_YEARS); // user input for the ticket's year
+
+            cout << "\nEnter description of the issue: ";
+            cin >> inputtedIssueDescription;
+
+            errorFlag = workTicketObj[i].SetWorkTicket(inputtedTicketNumber, inputtedClientID, inputtedWorkTicketDay, inputtedWorkTicketMonth, inputtedWorkTicketYear, inputtedIssueDescription);
+
+            if (errorFlag == false)
+            {
+                cout << "\nClient ID and issue description fields cannot be empty." << endl;
+            }
+        }
+        errorFlag = false;
+    }
+    for (int j = 0; j <= NUMBER_OF_OBJECTS; j++)
+    {
+        cout << "\n Work Ticket #" << j + 1 << endl;
+        cout << workTicketObj[j].ShowWorkTicket() << endl;
+    }
+
+    return 0;
+}//end of main
+
+//CLASS DEFINITION SECTION
 
 
-
+//generates a work ticket object
 WorkTicket::WorkTicket(int inputtedTicketNumber, string inputtedClientID, int inputtedWorkTicketDay, int inputtedWorkTicketMonth, int inputtedWorkTicketYear, string inputtedIssueDescription)
 {
     SetWorkTicket(inputtedTicketNumber, inputtedClientID, inputtedWorkTicketDay, inputtedWorkTicketMonth, inputtedWorkTicketYear, inputtedIssueDescription);
 }
 
-void WorkTicket::SetWorkTicket(int inputtedTicketNumber, string inputtedClientID, int inputtedWorkTicketDay, int inputtedWorkTicketMonth, int inputtedWorkTicketYear, string inputtedIssueDescription)
+//setter for each work ticket parameter
+bool WorkTicket::SetWorkTicket(int inputtedTicketNumber, string inputtedClientID, int inputtedWorkTicketDay, int inputtedWorkTicketMonth, int inputtedWorkTicketYear, string inputtedIssueDescription)
 {
-    SetWorkTicketNumber(inputtedTicketNumber);
-    // set client ID
-    SetClientID(inputtedClientID);
-    // set work ticket Day
-    SetWorkTicketDay(inputtedWorkTicketDay);
-    // set work ticket Month
-    SetWorkTicketDay(inputtedWorkTicketMonth);
-    // set work ticket Year
-    SetWorkTicketDay(inputtedWorkTicketYear);
-    // set issue Description
-    SetIssueDescription(inputtedIssueDescription);
+    if (inputtedIssueDescription.empty() == false && inputtedClientID.empty() == false)
+    {
+        SetWorkTicketNumber(inputtedTicketNumber);
+        // set client ID
+        SetClientID(inputtedClientID);
+        // set work ticket Day
+        SetWorkTicketDay(inputtedWorkTicketDay);
+        // set work ticket Month
+        SetWorkTicketMonth(inputtedWorkTicketMonth);
+        // set work ticket Year
+        SetWorkTicketYear(inputtedWorkTicketYear);
+        // set issue Description
+        SetIssueDescription(inputtedIssueDescription);
+
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 //setter for the work ticket number
@@ -138,13 +204,51 @@ void WorkTicket::SetIssueDescription(string inputtedIssueDescription)
 {
     issueDescription = inputtedIssueDescription;
 }
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
 
-// Tips for Getting Started:
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+//getter function for work ticket number
+int WorkTicket::GetWorkTicketNumber()
+{
+    return ticketNumber;
+}
+
+//getter function for work client ID
+string WorkTicket::GetClientID()
+{
+    return clientID;
+}
+
+//getter function for work ticket day
+int WorkTicket::GetWorkTicketDay()
+{
+    return workTicketDay;
+}
+
+//getter function for work ticket Month
+int WorkTicket::GetWorkTicketMonth()
+{
+    return workTicketMonth;
+}
+
+//getter function for work ticket year
+int WorkTicket::GetWorkTicketYear()
+{
+    return workTicketYear;
+}
+
+//getter function for issue description
+string WorkTicket::GetIssueDescription()
+{
+    return issueDescription;
+}
+
+//shows the attributes of a work tickets issue
+string WorkTicket::ShowWorkTicket()
+{   // declare a stringstream object
+    stringstream workTicketOutput;
+    // build the workorder output
+    workTicketOutput << "Ticket Number:\t" << GetWorkTicketNumber() << "\nClient ID:\t" << GetClientID()
+        << "\nWork Ticket Date:\t" << GetWorkTicketDay() << " " << GetWorkTicketMonth() << " " << GetWorkTicketYear()
+        << "\nIssue Description:\t" << GetIssueDescription() << ".";
+    //returned the workorder attribute output
+    return workTicketOutput.str();
+}
