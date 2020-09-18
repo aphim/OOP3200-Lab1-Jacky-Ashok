@@ -8,17 +8,100 @@
 // Last Modified: N/A
 //
 
-#include <iostream>
+#include <iostream> 		// cin, cout
+#include <iomanip>			// fixed, setprecision()
+#include <sstream> 			// stringstream
+#include <cmath>			// sqrt()
+#include <limits>			// INT_MAX
+#include <stdexcept>		// out_of_range
+#include "MyConsoleInput.h" // ConsoleInput::ReadInteger()
+
+using namespace std;
+
+const int DAY_MONTH_YEAR = 2;
+
+ class WorkTicket
+ {
+ public:
+//constructor
+WorkTicket(int ticketNumber = 0, string clientID = " ", int workTicketDate[DAY_MONTH_YEAR] = {1, 1, 2000}, string issueDescription = " ");
+
+// Accessors:
+//get the work ticket number
+int GetWorkTicketNumber();
+//get the client ID
+string GetClientID();
+//get the work ticket date
+int GetWorkTicketDate();
+//get the clients problem description
+string GetDescription();
+
+
+//Mutators:
+// set ticket number
+void SetWorkTicketNumber(int ticketNumber);
+// set client ID
+void SetClientID(string clientID);
+// set work ticket Date
+void SetWorkTicketDate(int workTicketDate[DAY_MONTH_YEAR]);
+// set issue Description
+void SetIssueDescription(string issueDescription);
+// set work ticket
+void SetWorkTicket(int ticketNumber, string clientID, int workTicketDate[DAY_MONTH_YEAR], string issueDescription);
+
+
+ private:
+   int ticketNumber; //work ticket number variable
+   string clientID; // client ID variable
+   int workTicketDate[DAY_MONTH_YEAR];
+   string issueDescription; //issue description variable
+
+ };
+
 
 int main()
 {
-    std::cout << "Hello World!\n";
+//user inputted variables
+int inputtedticketNumber;
+string inputtedClientID;
+int inputtedworkTicketDate[DAY_MONTH_YEAR];
+string inputtedissueDescription;
+
+}
+
+
+
+WorkTicket::WorkTicket(int ticketNumber, string clientID, int workTicketDate[DAY_MONTH_YEAR], string issueDescription)
+{
+  SetWorkTicket(int ticketNumber, string clientID, int workTicketDate[DAY_MONTH_YEAR], string issueDescription);
+}
+
+void WorkTicket::SetWorkTicket(int ticketNumber, string clientID, int workTicketDate[DAY_MONTH_YEAR], string issueDescription)
+{
+  SetWorkTicketNumber(int ticketNumber);
+  // set client ID
+  SetClientID(string clientID);
+  // set work ticket Date
+  SetWorkTicketDate(int workTicketDate[DAY_MONTH_YEAR]);
+  // set issue Description
+  SetIssueDescription(string issueDescription);
+}
+
+void WorkTicket::SetWorkTicketNumber(int ticketNumber)
+{
+  ticketNumber = inputtedticketNumber;
+}
+
+
+void WorkTicket::SetClientID(string clientID)
+{
+  
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
 // Debug program: F5 or Debug > Start Debugging menu
 
-// Tips for Getting Started: 
+// Tips for Getting Started:
 //   1. Use the Solution Explorer window to add/manage files
 //   2. Use the Team Explorer window to connect to source control
 //   3. Use the Output window to see build output and other messages
