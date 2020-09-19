@@ -76,7 +76,7 @@ private:
 int main()
 {
     //constants
-    const int NUMBER_OF_OBJECTS = 1;
+    const int NUMBER_OF_OBJECTS = 3;
     const int MIN_DATE = 1;
     const int MAX_DATE = 31;
     const int MIN_MONTHS = 1;
@@ -107,7 +107,6 @@ int main()
                 //inputtedTicketNumber = ConsoleInput::ReadInteger(MIN_TICKET_NUMBER); //users input for ticket number
                 inputtedTicketNumber = ConsoleInput::ReadInteger(1); //user input for ticket's date
                
-                 //exception if number is -
                 
 
                 cout << "\nEnter the Client ID: "; //prompt input for the client id
