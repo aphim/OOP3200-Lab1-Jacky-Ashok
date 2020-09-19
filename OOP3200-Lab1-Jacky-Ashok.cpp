@@ -76,7 +76,7 @@ private:
 int main()
 {
     //constants
-    const int NUMBER_OF_OBJECTS = 3;
+    const int NUMBER_OF_OBJECTS = 1;
     const int MIN_DATE = 1;
     const int MAX_DATE = 31;
     const int MIN_MONTHS = 1;
@@ -96,19 +96,18 @@ int main()
     bool errorFlag = false;
 
     //INPUT SECTION
-    for (int i = 0; i < NUMBER_OF_OBJECTS; i++)
+    for (int i = 0; i < NUMBER_OF_OBJECTS; i++)//loops through array of ticket objects 
     {
-        cout << "\nWork Ticket #" << i + 1;
-        while (errorFlag == false)
+        cout << "\nWork Ticket #" << i + 1; //header for ticket
+        while (errorFlag == false) //loops the input section when invalid input is entered
         {
-            try
+            try//start of try block
             {
                 cout << "\nEnter the work ticket number: "; //prompt input for ticket number
-                //inputtedTicketNumber = ConsoleInput::ReadInteger(MIN_TICKET_NUMBER); //users input for ticket number
-                inputtedTicketNumber = ConsoleInput::ReadInteger(1); //user input for ticket's date
+                
+                inputtedTicketNumber = ConsoleInput::ReadInteger(MIN_TICKET_NUMBER); //user input for ticket's date
                
                 
-
                 cout << "\nEnter the Client ID: "; //prompt input for the client id
                 cin >> inputtedClientID; //user input for client id
 
@@ -121,37 +120,41 @@ int main()
                 cout << "\nEnter the year (must be between 2000-2099): "; //prompt input for the ticket's year
                 inputtedWorkTicketYear = ConsoleInput::ReadInteger(MIN_YEARS, MAX_YEARS); // user input for the ticket's year
 
-                cout << "\nEnter description of the issue: ";
-                getline(cin, inputtedIssueDescription);
+                cout << "\nEnter description of the issue: "; //prompt user for issue description
+                getline(cin, inputtedIssueDescription); //user inputs description of issue
 
+            	//set error flag equal to the return value of SetWorkTicket function for this ticket object
                 errorFlag = workTicketObj[i].SetWorkTicket(inputtedTicketNumber, inputtedClientID, inputtedWorkTicketDay, inputtedWorkTicketMonth, inputtedWorkTicketYear, inputtedIssueDescription);
 
-                if (errorFlag == false)
-                {
-                    cout << "\nClient ID and issue description fields cannot be empty." << endl;
-                }
-                //catch block
+               // if (errorFlag == false)
+              //  {
+               //     cout << "\nClient ID and issue description fields cannot be empty." << endl;
+              //  }
+               
 
                 
             }
-            catch (const invalid_argument& ia) 
+            catch (const invalid_argument& ia)  //catch block
             {
-                 cerr << "Invalid argument: " << ia.what() << '\n';
+                 cerr << "Invalid argument: " << ia.what() << '\n'; //invalid argument print
+            	//clears input
                  cin.clear();
+            	//syncs input
                  cin.sync();
                 
               }
             
             
         }
-        errorFlag = false;
+        errorFlag = false; //resets errorFlag back to false
        
        
     }
-    for (int j = 0; j < NUMBER_OF_OBJECTS; j++)
+	
+    for (int j = 0; j < NUMBER_OF_OBJECTS; j++)//loops through the array of objects to print them out
     {
-        cout << "\n Work Ticket #" << j + 1 << endl;
-        cout << workTicketObj[j].ShowWorkTicket() << endl;
+        cout << "\n Work Ticket #" << j + 1 << endl; //ticket header
+        cout << workTicketObj[j].ShowWorkTicket() << endl; //calls ShowWorkTicket method for each object
     }
     return 0;
 }//end of main
@@ -162,13 +165,14 @@ int main()
 //generates a work ticket object
 WorkTicket::WorkTicket(int inputtedTicketNumber, string inputtedClientID, int inputtedWorkTicketDay, int inputtedWorkTicketMonth, int inputtedWorkTicketYear, string inputtedIssueDescription)
 {
+	//calls SetWorkTicket method
     SetWorkTicket(inputtedTicketNumber, inputtedClientID, inputtedWorkTicketDay, inputtedWorkTicketMonth, inputtedWorkTicketYear, inputtedIssueDescription);
 }
 
 //setter for each work ticket parameter
 bool WorkTicket::SetWorkTicket(int inputtedTicketNumber, string inputtedClientID, int inputtedWorkTicketDay, int inputtedWorkTicketMonth, int inputtedWorkTicketYear, string inputtedIssueDescription)
 {
-    if (inputtedIssueDescription.empty() == false && inputtedClientID.empty() == false)
+    if (inputtedIssueDescription.empty() == false && inputtedClientID.empty() == false) //run if the issue description isn't empty and the client ID isn't empty
     {
         SetWorkTicketNumber(inputtedTicketNumber);
         // set client ID
@@ -267,9 +271,9 @@ string WorkTicket::ShowWorkTicket()
 {   // declare a stringstream object
     stringstream workTicketOutput;
     // build the workorder output
-    workTicketOutput << "Ticket Number:\t" << GetWorkTicketNumber() << "\nClient ID:\t" << GetClientID()
+    workTicketOutput << "Ticket Number:\t\t" << GetWorkTicketNumber() << "\nClient ID:\t\t" << GetClientID()
         << "\nWork Ticket Date:\t" << GetWorkTicketDay() << "/" << GetWorkTicketMonth() << "/" << GetWorkTicketYear()
         << "\nIssue Description:\t" << GetIssueDescription() << ".";
-    //returned the workorder attribute output
+    //return the workorder attribute output
     return workTicketOutput.str();
 }
