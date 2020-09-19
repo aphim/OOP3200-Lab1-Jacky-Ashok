@@ -23,17 +23,19 @@ using namespace std;
 		if (cin.fail())            // if user input fails...
 		{
 			cin.clear(); // Reset the fail() state of the cin object.
-			cin.sync();  // clear the buffer 
+			cin.sync();  // clear the buffer
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 			// report the problem to the user.
-			cerr << "* Invalid input. Please try again and enter a numeric value.\n";
+			throw invalid_argument("Input must be numeric.");
 			// Try again by calling the function again (recursion)
+			
 			validNumber = ReadDouble(MIN, MAX);
 		}
 		else if (validNumber < MIN || validNumber > MAX)// if value is outside range...
 		{
 			// report the problem to the user.
-			cerr << " * Invalid input. Please try again and enter a value between "
-				<< MIN << " and " << MAX << ".\n";
+			throw invalid_argument("Number out of bounds.");
+				
 			// Try again by call the function again (recursion)
 			validNumber = ReadDouble(MIN, MAX);
 		}
@@ -53,9 +55,11 @@ using namespace std;
 		if (validNumber > (int)validNumber)      // If user input is not a whole number
 		{
 			// report the problem to the user.
-			cerr << " * Invalid input. Please try again and enter whole number.\n";
+			throw invalid_argument("Number must be a whole number.");
 			validNumber = ReadInteger(MIN, MAX); // try again using recursion.
 		}
+		 
+		
 		return (int)validNumber; // returns a valid value to the calling function.
 	}
 
