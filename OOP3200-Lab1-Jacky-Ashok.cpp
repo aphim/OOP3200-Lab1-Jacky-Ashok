@@ -76,7 +76,7 @@ private:
 int main()
 {
     //constants
-    const int NUMBER_OF_OBJECTS = 1;
+    const int NUMBER_OF_OBJECTS = 3;
     const int MIN_DATE = 1;
     const int MAX_DATE = 31;
     const int MIN_MONTHS = 1;
